@@ -7,7 +7,9 @@ import lejos.hardware.port.Port;
 import lejos.hardware.sensor.*;
 import lejos.robotics.SampleProvider;
 
-public class Lab4 {
+
+
+public class L4 {
 
 	// Static Resources:
 	// Left motor connected to output A
@@ -17,7 +19,9 @@ public class Lab4 {
 	private static final EV3LargeRegulatedMotor leftMotor = new EV3LargeRegulatedMotor(LocalEV3.get().getPort("A"));
 	private static final EV3LargeRegulatedMotor rightMotor = new EV3LargeRegulatedMotor(LocalEV3.get().getPort("D"));
 	private static final Port usPort = LocalEV3.get().getPort("S1");		
-	private static final Port colorPort = LocalEV3.get().getPort("S2");		
+	private static final Port colorPort = LocalEV3.get().getPort("S2");
+	public static final double WHEEL_RADIUS = 2.1;
+	public static final double TRACK = 15.8;
 
 	
 	public static void main(String[] args) {
@@ -57,6 +61,13 @@ public class Lab4 {
 		while (Button.waitForAnyPress() != Button.ID_ESCAPE);
 		System.exit(0);	
 		
+	}
+	public static EV3LargeRegulatedMotor getLeftMotor() {
+		return leftMotor;
+	}
+
+	public static EV3LargeRegulatedMotor getRightMotor() {
+		return rightMotor;
 	}
 
 }

@@ -1,4 +1,15 @@
+/*
+ * Odometer.java
+ */
+//DPM Group 8
+//Gareth Peters
+//ID:260678626
+//LuoQing(Ryan) Wang
+//ID:260524744
+
+
 package localization;
+
 public class Odometer extends Thread {
 	// robot position
 	private double x, y, theta;
@@ -13,21 +24,47 @@ public class Odometer extends Thread {
 	public Odometer() {
 		x = 0.0;
 		y = 0.0;
-		theta = 0.0;
+		theta = 90.0;
 		lock = new Object();
 	}
 
 	// run method (required for Thread)
 	public void run() {
 		long updateStart, updateEnd;
-
+		;
+		double TachoBeforeR=0;
+		double TachoBeforeL=0;
 		while (true) {
+			double TachoNowR = L4.getRightMotor().getTachoCount();
+			double TachoNowL = L4.getLeftMotor().getTachoCount();
 			updateStart = System.currentTimeMillis();
-			// put (some of) your odometer code here
-
+			//Takes the difference of the Tacho counters and converts to radians for a later 
+			double deltaLeft = Math.toRadians(TachoNowL - TachoBeforeL);
+			double deltaRight = Math.toRadians(TachoNowR - TachoBeforeR);
+			double radiusW = L4.WHEEL_RADIUS;
+			double track = L4.TRACK;
+			
+			
+			
 			synchronized (lock) {
-				// don't use the variables x, y, or theta anywhere but here!
-				theta = -0.7376;
+				//The change in arc and theta
+				double deltaC = radiusW * (deltaLeft + deltaRight) / 2;
+				double deltaTheta = radiusW * (deltaLeft - deltaRight) / track;
+				theta=Math.toRadians(theta);
+				//Add the change in x to the old value of x (similarly for y and theta)
+				y+=deltaC*Math.cos(theta+deltaTheta/2);
+				x+=deltaC*Math.sin(theta+deltaTheta/2);
+				theta=Math.toDegrees(theta+deltaTheta);
+				//Sets the value of now Tacho to old Tacho for next iteration
+				TachoBeforeL=TachoNowL;
+				TachoBeforeR=TachoNowR;
+				//If theta!=(0,360] then set it so that it is.
+				if(theta>360){
+					theta=theta-360;
+				}
+				if(theta<0){
+					theta=360+theta;
+				}
 			}
 
 			// this ensures that the odometer only runs once every period
