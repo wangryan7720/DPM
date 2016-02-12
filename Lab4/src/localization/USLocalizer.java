@@ -10,6 +10,8 @@ public class USLocalizer {
 	private float[] usData;
 	private LocalizationType locType;
 	
+	private final double sensor_offset=20;
+	
 	public USLocalizer(Odometer odo,  SampleProvider usSensor, float[] usData, LocalizationType locType) {
 		this.odo = odo;
 		this.usSensor = usSensor;
