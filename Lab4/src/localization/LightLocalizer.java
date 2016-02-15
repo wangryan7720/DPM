@@ -1,7 +1,11 @@
 package localization;
 import lejos.hardware.sensor.SensorMode;
 import lejos.robotics.SampleProvider;
-
+//DPM Group 8
+//Gareth Peters
+//ID:260678626
+//LuoQing(Ryan) Wang
+//ID:260524744
 public class LightLocalizer {
 	private Odometer odo;
 	private SampleProvider colorSensor;

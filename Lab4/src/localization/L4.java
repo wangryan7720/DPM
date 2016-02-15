@@ -1,5 +1,9 @@
 package localization;
-
+//DPM Group 8
+//Gareth Peters
+//ID:260678626
+//LuoQing(Ryan) Wang
+//ID:260524744
 import lejos.hardware.*;
 import lejos.hardware.ev3.LocalEV3;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
@@ -44,7 +48,7 @@ public class L4 {
 		SensorModes colorSensor = new EV3ColorSensor(colorPort);
 		SampleProvider colorValue = colorSensor.getMode("Red");			// colorValue provides samples from this instance
 		float[] colorData = new float[colorValue.sampleSize()];			// colorData is the buffer in which data are returned
-				
+	
 		// setup the odometer and display
 		Odometer odo = new Odometer();
 		odo.start();
@@ -53,6 +57,11 @@ public class L4 {
 		// perform the ultrasonic localization
 		USLocalizer usl = new USLocalizer(odo, usValue, usData, USLocalizer.LocalizationType.FALLING_EDGE);
 		usl.doLocalization();
+		//Creates a navigator that will allow for the robot to travel to 0,0 
+		//in order for the robot to localize using light
+		Navigation navigator = new Navigation(odo,usl);	
+		 while (Button.waitForAnyPress() != Button.ID_RIGHT);
+		 navigator.goForward();
 		
 		// perform the light sensor localization
 		LightLocalizer lsl = new LightLocalizer(odo, colorValue, colorData);
