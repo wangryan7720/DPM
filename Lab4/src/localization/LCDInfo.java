@@ -1,4 +1,9 @@
 package localization;
+//DPM Group 8
+//Gareth Peters
+//ID:260678626
+//LuoQing(Ryan) Wang
+//ID:260524744
 import lejos.hardware.ev3.LocalEV3;
 import lejos.hardware.lcd.TextLCD;
 import lejos.utility.Timer;
